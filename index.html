@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next-Agendemy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Página Inicial do Next-Agendemy -->
+    <div class="container">
+        <h1>Next-Agendemy</h1>
+        <p>
+            Bem-vindo ao Next-Agendemy, sua plataforma de agendamento inteligente! 
+        <br>
+            Digite seu nome para assim poder realizar o agendamento de sua reunião:
+        </p>
+        <input type="text" id="nome" placeholder="DIGITE SEU NOME:"> <button id="btn-prosseguir">Prosseguir</button>
+        <p class="observacao">Obs: Você só poderá agendar um horário caso digite seu nome acima.</p>
+
+        <table>
+            <tr>
+                <th>Dias da Semana</th>
+                <th>Horários</th>
+                <th>Disponibilidade</th>
+                <th>Nome</th>
+                <th>Ação</th>
+            </tr>
+            <tr>
+                <td>Segunda-Feira</td>
+                <td>08:00 - 12:00</td>
+                <td>Disponível</td>
+                <td></td>
+                <td><select name="nome" id="nome">
+                    <option value="" hidden selected>Agendar</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Terça-Feira</td>
+                <td>14:00 - 18:00</td>
+                <td>Disponível</td>
+                <td></td>  
+                <td><select name="nome" id="nome">
+                    <option value="" hidden selected>Agendar</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Quarta-Feira</td>
+                <td>08:00 - 12:00</td>
+                <td>Indisponível</td>
+                <td></td>
+                <td><select name="nome" id="nome">
+                    <option value="" hidden selected>Agendar</option>
+                </select></td>
+            </tr>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
