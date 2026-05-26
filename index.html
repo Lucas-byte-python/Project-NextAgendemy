@@ -8,7 +8,6 @@
     <!-- Link para o Arquivo CSS do Next-Agendemy -->
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <!-- Página Inicial do Next-Agendemy -->
     <div class="container">
@@ -23,7 +22,7 @@
             Digite seu nome para assim poder realizar o agendamento de sua reunião:
         </p>
         
-        <!-- Input para o Nome e Botão de Confirmação -->
+        <!-- Input para o Nome e Botão de Confirmação e Cancelamento -->
         <input type="text" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" id="nome" placeholder="DIGITE SEU NOME:"> 
         <button id="btn-prosseguir">CONFIRMAR</button>
         <button id="btn-cancelar">CANCELAR</button>
@@ -38,21 +37,21 @@
             <tr>
                 <th>DIA</th>
                 <th>HORÁRIO</th>
-                <th>DISP.</th>
-                <th>NOME PART.</th>
+                <th>STATUS</th>
+                <th>PARTICIPANTE</th>
                 <th>AGENDAMENTO</th>
             </tr>
 
             <!-- Linhas de Agendamento para Cada Dia da Semana -->
             <tr>
-                <td class="dia">Segunda-Feira</td>
+                <td class="dia">Segunda</td>
                 <td class="horario">8:00 -- 9:00 -- 10:00</td>
                 <td class="disponibilidade">Disponível</td>
                 <td class="nome"></td>
 
                 <td>
                     <select class="select-horario">
-                        <option value="" hidden selected>Agendar</option>
+                        <option value="" hidden selected>ESCOLHER</option>
                         <option value="8:00">8:00</option>
                         <option value="9:00">9:00</option>
                         <option value="10:00">10:00</option>
@@ -61,14 +60,14 @@
             </tr>
 
             <tr>
-                <td class="dia">Terça-Feira</td>
+                <td class="dia">Terça</td>
                 <td class="horario">15:00 -- 16:00 -- 17:00</td>
                 <td class="disponibilidade">Disponível</td>
                 <td class="nome"></td>
 
                 <td>
                     <select class="select-horario">
-                        <option value="" hidden selected>Agendar</option>
+                        <option value="" hidden selected>ESCOLHER</option>
                         <option value="15:00">15:00</option>
                         <option value="16:00">16:00</option>
                         <option value="17:00">17:00</option>
@@ -77,17 +76,47 @@
             </tr>
 
             <tr>
-                <td class="dia">Quarta-Feira</td>
+                <td class="dia">Quarta</td>
                 <td class="horario">20:00 -- 21:00 -- 22:00</td>
                 <td class="disponibilidade">Disponível</td>
                 <td class="nome"></td>
 
                 <td>
                     <select class="select-horario">
-                        <option value="" hidden selected>Agendar</option>
+                        <option value="" hidden selected>ESCOLHER</option>
                         <option value="20:00">20:00</option>
                         <option value="21:00">21:00</option>
                         <option value="22:00">22:00</option>
+                    </select></td>
+            </tr>
+
+            <tr>
+                <td class="dia">Quinta</td>
+                <td class="horario">12:00 -- 13:00 -- 14:00</td>
+                <td class="disponibilidade">Disponível</td>
+                <td class="nome"></td>
+
+                <td>
+                    <select class="select-horario">
+                        <option value="" hidden selected>ESCOLHER</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                    </select></td>
+            </tr>
+
+            <tr>
+                <td class="dia">Sexta</td>
+                <td class="horario">05:00 -- 06:00 -- 07:00</td>
+                <td class="disponibilidade">Disponível</td>
+                <td class="nome"></td>
+
+                <td>
+                    <select class="select-horario">
+                        <option value="" hidden selected>ESCOLHER</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
                     </select></td>
             </tr>
         </table>
@@ -95,6 +124,5 @@
 
     <!-- JavaScript para Funcionalidades do Next-Agendemy -->
     <script src="script.js"></script>
-
 </body>
 </html>

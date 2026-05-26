@@ -48,7 +48,7 @@ body {
     font-size: medium;
 }
 
-/* Estilos para o Input */
+/* Estilos para o Input (caixa de texto) */
 input {
     width: 50%;
     padding: 9px;
@@ -58,7 +58,6 @@ input {
 }
 
 /* Estilos para o Botão */
-
 #btn-prosseguir {
     padding: 10px 20px;
     margin-left: 2%;
@@ -145,4 +144,17 @@ td:has(.select-horario) {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Destaque da Linha */
+.linha-destaque td {
+    background-color: #0663bf !important;
+    color: white !important;
+}
+
+/* Destaque do Select */
+.linha-destaque select {
+    background-color: #0663bf;
+    color: white;
+    border: 1px solid white;
 }
