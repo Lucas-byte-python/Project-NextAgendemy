@@ -15,15 +15,19 @@ document.getElementById('btn-prosseguir').addEventListener('click', function() {
     nomeUsuario = document.getElementById('nome').value.trim();
 
     if (nomeUsuario === '') {
+
         alert('Por favor, digite seu nome!');
+
         return;
     }
 
     // Verifica se o nome já agendou
     if (nomesAgendados.includes(nomeUsuario.toLowerCase())) {
+
         alert('Este nome já realizou um agendamento. Utilize outro nome.');
 
         document.getElementById('nome').value = '';
+
         nomeUsuario = null;
 
         return;
@@ -38,11 +42,15 @@ document.getElementById('btn-prosseguir').addEventListener('click', function() {
 // Função para cancelar agendamento
 document.getElementById('btn-cancelar').addEventListener('click', function() {
 
-    const nomeParaCancelar =
-        document.getElementById('nome').value.trim();
+    const inputNome = document.getElementById('nome');
 
+    const nomeParaCancelar = inputNome.value.trim();
+
+    // Se não digitou nada
     if (nomeParaCancelar === '') {
-        alert('Por favor, digite o nome que deseja cancelar!');
+
+        alert('Não é possível cancelar algo sem digitar um nome.');
+
         return;
     }
 
@@ -50,8 +58,17 @@ document.getElementById('btn-cancelar').addEventListener('click', function() {
 
     const index = nomesAgendados.indexOf(nomeLower);
 
+    // Se o nome NÃO tiver agendamento,
+    // apenas limpa o input sem mostrar mensagem
     if (index === -1) {
-        alert('Nenhum agendamento encontrado para este nome.');
+
+        inputNome.value = '';
+
+        nomeUsuario = null;
+
+        document.querySelector('.observacao').textContent =
+            'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
+
         return;
     }
 
@@ -85,6 +102,7 @@ document.getElementById('btn-cancelar').addEventListener('click', function() {
 
                 // Restaurar horários originais
                 if (tdDia.textContent.includes('Segunda')) {
+
                     tdHorario.textContent =
                         '8:00 -- 9:00 -- 10:00';
 
@@ -133,14 +151,12 @@ document.getElementById('btn-cancelar').addEventListener('click', function() {
 
         alert('Agendamento cancelado com sucesso!');
 
-        document.getElementById('nome').value = '';
+        inputNome.value = '';
+
+        nomeUsuario = null;
 
         document.querySelector('.observacao').textContent =
             'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
-
-    } else {
-
-        alert('Erro ao cancelar o agendamento.');
     }
 });
 
