@@ -7,14 +7,16 @@
 
 /* Estilos Globais */
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
     color: #333;
     background: linear-gradient(135deg, #FFFFFF 0%, #909090 50%, #afafaf 100%);
     background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
 /* Estilos para o Container Principal */
@@ -24,11 +26,11 @@ body {
     padding: 20px;
     background-color: #acacac6f;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 /* Estilos para o Título e Parágrafo */
-.container h1 {
+.container  h1 {
     color: #ffffff;
     text-transform: uppercase;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
@@ -38,50 +40,71 @@ body {
 
 .container p {
     text-align: center;
-    font-size: 1.2em;
+    text-transform: uppercase;
+    font-size: medium;
     margin-bottom: 2%;
+    margin: 0 22px 20px 22px;
 }
 
+
 .container .observacao {
-    margin-top: 2%;
+    text-align: center;
+    text-transform: uppercase;
     opacity: 0.6;
-    font-size: medium;
+    font-size: smaller;
 }
 
 /* Estilos para o Input (caixa de texto) */
 input {
-    width: 50%;
-    padding: 9px;
-    margin: 0 0 0 8%;
+    width: 58%;
+    padding: 10px;
+    margin: 0 0 0 3%;
+    border-radius: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 13px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+#nome:focus {
+    border-color: #ff00d0c8;
+    outline: none;
+    box-shadow: 0 0 10px rgba(37,99,235,0.3);
 }
 
 /* Estilos para o Botão */
 #btn-prosseguir {
-    padding: 10px 20px;
+    padding: 12px 20px;
     margin-left: 2%;
     background-color: #007BFF;
     color: #fff;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
     display: inline-block;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+#btn-prosseguir:hover {
+    background-color: #00a6ff;
 }
 
 #btn-cancelar {
-    padding: 10px 20px;
+    padding: 12px 20px;
     margin-left: 1%;
     background-color: #e53935;
     color: #fff;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
     display: inline-block;
-    transition: background 0.2s;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    font-weight: bold;
 }
+
 #btn-cancelar:hover {
-    background-color: #b71c1c;
+    background-color: #fe0000;
 }
 
 /* Estilos para a tabela centralizada */
@@ -93,68 +116,62 @@ table {
     text-align: left;
 }
 
-th,
-td {
-    background-color: rgb(5, 6, 6);
-    padding: 12px 16px;
-    border: 1px solid #b4b4b4;
-    color: #ffffff;
-    font-weight: 500;
-}
-
-tr:nth-child(even) td {
-    background-color: rgb(5, 6, 6);
-}
-
-.dia {
-    text-align: center;
-}
-
-.disponibilidade {
-    text-align: center;
-    color: #7700ff;
-}
-
-.horario {
-    text-align: center;
-}
-
-.nome {
-    text-align: center;
-}
-
 th {
-    color: #e2e2e2;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: medium;
-    background-color: #454545;
-    font-weight: 600;
+    background-color: rgb(23, 26, 26);
+    border: 1px solid #ffffff;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    font-size: 15px;
+}
+
+td {
+    background-color: rgb(43, 52, 52);
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 12px;
     text-align: center;
 }
 
 /* Estilos para o Select */
-select {
-    padding: 6px 8px;
-    border-radius: 4px;
+.select-horario {
     color: #ffffff;
-    background-color: rgb(0, 0, 0);
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    
 }
 
-td:has(.select-horario) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.select-horario option {
+    background-color: #0800ff; 
+    padding: 10px; 
+    direction: rtl;
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-inline-start: 0 !important;
+    padding-inline-end: -4px !important;
 }
 
 /* Destaque da Linha */
 .linha-destaque td {
-    background-color: #0663bf !important;
+    transition: background-color 0.8s ease;
+    background-color: #0800ff !important;
     color: white !important;
 }
 
-/* Destaque do Select */
-.linha-destaque select {
-    background-color: #0663bf;
-    color: white;
-    border: 1px solid white;
+/* Responsividade */
+@media(max-width: 900px) {
+    .container{
+        overflow-x: auto;
+    }
+
+    table{
+        min-width: 800px;
+    }
 }

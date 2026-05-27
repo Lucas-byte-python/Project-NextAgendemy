@@ -4,257 +4,320 @@ let nomeUsuario = null;
 // Lista de nomes já agendados
 const nomesAgendados = [];
 
-// Salva os horários originais de cada select
-document.querySelectorAll('.select-horario').forEach(function(select) {
-    select.dataset.originalOptions = select.innerHTML;
-});
+// Array para criação da tabela
+const agenda = [
+    {
+        dia: 'Segunda',
+        horarios: ['08:00', '09:00', '10:00'],
+        status: 'DISPONÍVEL',
+        participante: '',
+        agendado: false
+    },
 
-// Função para armazenar o nome
-document.getElementById('btn-prosseguir').addEventListener('click', function() {
+    {
+        dia: 'Terça',
+        horarios: ['15:00', '16:00', '17:00'],
+        status: 'DISPONÍVEL',
+        participante: '',
+        agendado: false
+    },
 
+    {
+        dia: 'Quarta',
+        horarios: ['20:00', '21:00', '22:00'],
+        status: 'DISPONÍVEL',
+        participante: '',
+        agendado: false
+    },
+
+    {
+        dia: 'Quinta',
+        horarios: ['12:00', '13:00', '14:00'],
+        status: 'DISPONÍVEL',
+        participante: '',
+        agendado: false
+    },
+
+    {
+        dia: 'Sexta',
+        horarios: ['05:00', '06:00', '07:00'],
+        status: 'DISPONÍVEL',
+        participante: '',
+        agendado: false
+    }
+];
+
+const tabela = document.getElementById('tabela-agenda');
+
+// Função para renderizar a tabela
+function renderizarTabela() {
+    tabela.innerHTML = `
+        <tr>
+            <th>DIA</th>
+            <th>HORÁRIO</th>
+            <th>STATUS</th>
+            <th>PARTICIPANTE</th>
+            <th>AGENDAMENTO</th>
+        </tr>
+    `;
+
+    // Adcionando linhas da agenda
+    agenda.forEach(function(item) {
+        const tr = document.createElement('tr');
+
+        // Dia
+        const tdDia = document.createElement('td');
+        tdDia.classList.add('dia');
+        tdDia.textContent = item.dia;
+
+        // Horário
+        const tdHorario = document.createElement('td');
+        tdHorario.classList.add('horario');
+
+        // Perceber qual horário agendado ou mostrar todos
+        tdHorario.textContent = item.agendado
+            ? item.horarioSelecionado
+            : item.horarios.join(' -- ');
+
+        // Status
+        const tdStatus = document.createElement('td');
+        tdStatus.classList.add('disponibilidade');
+        tdStatus.textContent = item.status;
+        
+        // Mudar a cor do status se estiver agendado ou volta ao normal
+        if (item.agendado) {
+            tdStatus.style.color = '#00ff88';
+        } 
+        else {
+            tdStatus.style.color = '#00ffc8';
+        } 
+
+        // Participantes do Agendameto
+        const tdParticipante = document.createElement('td');
+        tdParticipante.classList.add('nome');
+        tdParticipante.textContent = item.participante;
+
+        // Select
+        const tdSelect = document.createElement('td');
+        const select = document.createElement('select');
+        select.classList.add('select-horario');
+
+        // Se estiver agendado mostra a opção de liberar, caso contrário mostra os horários disponíveis
+        if (item.agendado) {
+
+            // Opção Padrao
+            const optionPadrao = document.createElement('option');
+            optionPadrao.value = '';
+            optionPadrao.textContent = 'LIBERAR AGEND';
+            optionPadrao.selected = true;
+            optionPadrao.disabled = true;
+            select.appendChild(optionPadrao);
+            
+            // Opção de liberar
+            const optionLiberar = document.createElement('option');
+            optionLiberar.value = 'liberar';
+            optionLiberar.textContent = 'LIBERAR';
+            select.appendChild(optionLiberar);
+        }
+        else {
+            // Volta ao padrão
+            const optionPadrao = document.createElement('option');
+
+            optionPadrao.value = '';
+            optionPadrao.textContent = 'ESCOLHER';
+            optionPadrao.hidden = true;
+            optionPadrao.selected = true;
+            select.appendChild(optionPadrao);
+
+            // Horários disponíveis do select
+            item.horarios.forEach(function(horario) {
+                const option = document.createElement('option');
+                option.value = horario;
+                option.textContent = horario;
+                select.appendChild(option);
+            });
+        }
+
+    // Funções do agendamento
+    // Mostrar para digitar o nome caso não tenha digitado
+    select.addEventListener('change', function() {
+
+        // Liberar agendamento
+        if (select.value === 'liberar') {
+            
+            const index = nomesAgendados.indexOf(item.participante.toLowerCase());
+            
+            if (index !== -1) {
+                nomesAgendados.splice(index, 1);
+            }
+
+            // Resetar informações
+            item.status = 'DISPONÍVEL';
+            item.participante = '';
+            item.agendado = false;
+
+            delete item.horarioSelecionado;
+
+            // Atualiza tabela
+            renderizarTabela();
+            alert('AGENDAMENTO LIBERADO!');
+            return;
+        }
+
+        // Mostrar para digitar o nome caso não tenha digitado
+        if (!nomeUsuario) {
+            alert('DIGITE O SEU NOME ANTES DE AGENDAR UM HORÁRIO!');
+            select.value = '';
+            return;
+        }
+
+        const horarioSelecionado = select.value;
+        if (!horarioSelecionado) return;
+
+        // Atualiza a lista de agendados
+        item.status = 'AGENDADO';
+        item.participante = nomeUsuario;
+        item.agendado = true;
+        item.horarioSelecionado = horarioSelecionado;
+
+        // Salva o nome
+        nomesAgendados.push(nomeUsuario.toLowerCase());
+
+        // Limpa o input
+        document.getElementById('nome').value = '';
+        nomeUsuario = null;
+        document.querySelector('.observacao').textContent = 'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
+
+        // Atualiza a tabela
+        renderizarTabela();
+        });
+
+        // Destaque da linha ao clicar no select
+        select.addEventListener('focus', function() {
+            tr.classList.add('linha-destaque');
+        });
+
+        select.addEventListener('blur', function() {
+            tr.classList.remove('linha-destaque');
+    });
+
+        // Estrutura da tabela
+        tdSelect.appendChild(select);
+        tr.appendChild(tdDia);
+        tr.appendChild(tdHorario);
+        tr.appendChild(tdStatus);
+        tr.appendChild(tdParticipante);
+        tr.appendChild(tdSelect);
+        tabela.appendChild(tr);
+    });
+
+    // Mostra o Resumo do Agendamento
+    atualizarResumo();
+}
+
+renderizarTabela();
+
+// Funções do botão confirmar
+document
+.getElementById('btn-prosseguir')
+.addEventListener('click', function() {
     nomeUsuario = document.getElementById('nome').value.trim();
 
     if (nomeUsuario === '') {
-
-        alert('Por favor, digite seu nome!');
-
+        alert('POR GENTILIZA, DIGITE SEU NOME NO CAMPO -- DIGITE SEU NOME --');
         return;
     }
 
-    // Verifica se o nome já agendou
-    if (nomesAgendados.includes(nomeUsuario.toLowerCase())) {
-
-        alert('Este nome já realizou um agendamento. Utilize outro nome.');
-
+    // Verifica se já agendou com o mesmo nome (tanto caixa alta quanto caixa baixa)
+    if (
+        nomesAgendados.includes(nomeUsuario.toLowerCase())
+    ) {
+        alert('ESTE NOME JÁ REALIZOU UM AGENDAMENTO.');
         document.getElementById('nome').value = '';
-
         nomeUsuario = null;
-
         return;
     }
-
-    document.querySelector('.observacao').textContent =
-        'Selecione um horário para agendar.';
-
-    alert(`Bem-vindo, ${nomeUsuario}! Agora selecione um horário para agendar.`);
+    document.querySelector('.observacao').textContent = 'Escolha um horário para agendar.';
+    alert(`SEJA BEM-VINDO! ${nomeUsuario}, AGORA VOCÊ PODE AGENDAR UM HORÁRIO!`);
 });
 
-// Função para cancelar agendamento
-document.getElementById('btn-cancelar').addEventListener('click', function() {
+// Funções do botão cancelar
+document
+.getElementById('btn-cancelar')
+.addEventListener('click', function() {
 
     const inputNome = document.getElementById('nome');
-
     const nomeParaCancelar = inputNome.value.trim();
 
-    // Se não digitou nada
+    // Se não tiver nada digitado
     if (nomeParaCancelar === '') {
-
-        alert('Não é possível cancelar algo sem digitar um nome.');
-
+        alert('NÃO É POSSÍVEL CANCELAR ALGO SEM DIGITAR UM NOME.');
         return;
     }
 
     const nomeLower = nomeParaCancelar.toLowerCase();
 
+    // Procura se tem agendamento com esse nome (tanto caixa alta quanto caixa baixa)
+    const agendamento = agenda.find(function(item) {
+        return (item.participante.toLowerCase() === nomeLower);
+    });
+
+    // Não encontrou
+    if (!agendamento) {
+        inputNome.value = '';
+        nomeUsuario = null;
+        document.querySelector('.observacao').textContent = 'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
+        return;
+    }
+
+    // Remove da lista de agenamento
     const index = nomesAgendados.indexOf(nomeLower);
 
-    // Se o nome NÃO tiver agendamento,
-    // apenas limpa o input sem mostrar mensagem
-    if (index === -1) {
-
-        inputNome.value = '';
-
-        nomeUsuario = null;
-
-        document.querySelector('.observacao').textContent =
-            'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
-
-        return;
+    if (index !== -1) { 
+        nomesAgendados.splice(index, 1);
     }
 
-    // Remove da lista de agendados
-    nomesAgendados.splice(index, 1);
+    // Reseta as informações para o padrão
+    agendamento.status = 'DISPONÍVEL';
+    agendamento.participante = '';
+    agendamento.agendado = false;
+    delete agendamento.horarioSelecionado;
 
-    let cancelado = false;
-
-    document.querySelectorAll('#tabela-agenda tr').forEach(function(tr) {
-
-        const tdNome = tr.querySelector('.nome');
-
-        if (
-            tdNome &&
-            tdNome.textContent.trim().toLowerCase() === nomeLower
-        ) {
-
-            const tdHorario = tr.querySelector('.horario');
-            const tdDia = tr.querySelector('.dia');
-            const tdDisponibilidade =
-                tr.querySelector('.disponibilidade');
-
-            const select = tr.querySelector('.select-horario');
-
-            if (
-                tdDia &&
-                tdHorario &&
-                tdDisponibilidade &&
-                select
-            ) {
-
-                // Restaurar horários originais
-                if (tdDia.textContent.includes('Segunda')) {
-
-                    tdHorario.textContent =
-                        '8:00 -- 9:00 -- 10:00';
-
-                } else if (tdDia.textContent.includes('Terça')) {
-
-                    tdHorario.textContent =
-                        '15:00 -- 16:00 -- 17:00';
-
-                } else if (tdDia.textContent.includes('Quarta')) {
-
-                    tdHorario.textContent =
-                        '20:00 -- 21:00 -- 22:00';
-
-                } else if (tdDia.textContent.includes('Quinta')) {
-
-                    tdHorario.textContent =
-                        '12:00 -- 13:00 -- 14:00';
-
-                } else if (tdDia.textContent.includes('Sexta')) {
-
-                    tdHorario.textContent =
-                        '05:00 -- 06:00 -- 07:00';
-                }
-
-                // Restaurar status
-                tdDisponibilidade.textContent = 'Disponível';
-                tdDisponibilidade.style.color = '';
-
-                // Limpar nome
-                tdNome.textContent = '';
-
-                // Restaurar select original
-                select.innerHTML =
-                    select.dataset.originalOptions;
-
-                select.disabled = false;
-                select.value = '';
-
-                cancelado = true;
-            }
-        }
-    });
-
-    // Retorno do Cancelamento
-    if (cancelado) {
-
-        alert('Agendamento cancelado com sucesso!');
-
-        inputNome.value = '';
-
-        nomeUsuario = null;
-
-        document.querySelector('.observacao').textContent =
-            'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
-    }
-});
-
-// Função para lidar com o agendamento
-function agendarHorario(select) {
-
-    // Sempre pega o nome atual do input
-    let nomeAtual = nomeUsuario;
-
-    if (!nomeAtual) {
-
-        alert('Digite seu nome antes de agendar!');
-
-        select.value = '';
-
-        return;
-    }
-
-    // Verifica se o nome já agendou
-    if (nomesAgendados.includes(nomeAtual.toLowerCase())) {
-
-        alert('Este nome já realizou um agendamento. Utilize outro nome.');
-
-        document.getElementById('nome').value = '';
-
-        nomeUsuario = null;
-
-        select.value = '';
-
-        return;
-    }
-
-    const tr = select.closest('tr');
-
-    const horarioSelecionado = select.value;
-
-    if (!horarioSelecionado) return;
-
-    // Mostra apenas o horário selecionado
-    tr.querySelector('.horario').textContent =
-        horarioSelecionado;
-
-    // Mostra o nome do participante
-    tr.querySelector('.nome').textContent =
-        nomeAtual;
-
-    // Atualiza disponibilidade
-    tr.querySelector('.disponibilidade').textContent =
-        'AGENDADO';
-
-    tr.querySelector('.disponibilidade').style.color =
-        'green';
-
-    // Troca o select para "INDISPONÍVEL"
-    select.innerHTML =
-        '<option value="indisponivel">INDISPONÍVEL</option>';
-
-    select.value = 'indisponivel';
-
-    select.disabled = true;
-
-    // Adiciona nome na lista
-    nomesAgendados.push(nomeAtual.toLowerCase());
+    // Atualiza tabela
+    renderizarTabela();
 
     // Limpa input
-    document.getElementById('nome').value = '';
-
+    inputNome.value = '';
     nomeUsuario = null;
 
-    document.querySelector('.observacao').textContent =
-        'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
+    document.querySelector('.observacao').textContent = 'Obs: Você só poderá agendar um horário caso digite seu nome acima.';
+    alert('AGENDAMENTO CANCELADO COM SUCESSO!');
+});
+
+// Cria resumo do agendamento 
+const resumoAgenda = document.createElement('div');
+resumoAgenda.id = 'resumo-agenda';
+
+// Adiciona depois da tabela
+tabela.parentElement.appendChild(resumoAgenda);
+
+// Função para atualizar resumo
+function atualizarResumo() {
+    const totalHorarios = agenda.length;
+    const horariosAgendados =
+        agenda.filter(function(item) {
+            return item.agendado;
+        }).length;
+
+    const horariosDisponiveis =
+        totalHorarios - horariosAgendados;
+    resumoAgenda.innerHTML = `
+        <h3>RESUMO DA AGENDA</h3>
+        <p>TOTAL DE HORÁRIOS: ${totalHorarios}</p>
+        <p>HORÁRIOS DISPONÍVEIS: ${horariosDisponiveis}</p>
+        <p>HORÁRIOS AGENDADOS: ${horariosAgendados}</p>
+    `;
 }
 
-// Eventos dos selects
-document.querySelectorAll('.select-horario').forEach(function(select) {
-
-    // Destacar linha ao focar
-    select.addEventListener('focus', function() {
-
-        const tr = this.closest('tr');
-
-        if (tr) {
-            tr.classList.add('linha-destaque');
-        }
-    });
-
-    // Remover destaque
-    select.addEventListener('blur', function() {
-
-        const tr = this.closest('tr');
-
-        if (tr) {
-            tr.classList.remove('linha-destaque');
-        }
-    });
-
-    // Detectar o usuário escolher no select
-    select.addEventListener('change', function() {
-        agendarHorario(this);
-    });
-});
+// Atualiza resumo ao iniciar
+atualizarResumo();
