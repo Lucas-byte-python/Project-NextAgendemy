@@ -210,9 +210,6 @@ function renderizarTabela() {
         tr.appendChild(tdSelect);
         tabela.appendChild(tr);
     });
-
-    // Mostra o Resumo do Agendamento
-    atualizarResumo();
 }
 
 renderizarTabela();
@@ -270,7 +267,7 @@ document
         return;
     }
 
-    // Remove da lista de agenamento
+    // Remove da lista de agendamento
     const index = nomesAgendados.indexOf(nomeLower);
 
     if (index !== -1) { 
@@ -294,30 +291,16 @@ document
     alert('AGENDAMENTO CANCELADO COM SUCESSO!');
 });
 
-// Cria resumo do agendamento 
-const resumoAgenda = document.createElement('div');
-resumoAgenda.id = 'resumo-agenda';
+document
+.getElementById('btn-resumo')
+.addEventListener('click', function() {
 
-// Adiciona depois da tabela
-tabela.parentElement.appendChild(resumoAgenda);
+    // Salva agenda no navegador
+    localStorage.setItem(
+        'agendaResumo',
+        JSON.stringify(agenda)
+    );
 
-// Função para atualizar resumo
-function atualizarResumo() {
-    const totalHorarios = agenda.length;
-    const horariosAgendados =
-        agenda.filter(function(item) {
-            return item.agendado;
-        }).length;
-
-    const horariosDisponiveis =
-        totalHorarios - horariosAgendados;
-    resumoAgenda.innerHTML = `
-        <h3>RESUMO DA AGENDA</h3>
-        <p>TOTAL DE HORÁRIOS: ${totalHorarios}</p>
-        <p>HORÁRIOS DISPONÍVEIS: ${horariosDisponiveis}</p>
-        <p>HORÁRIOS AGENDADOS: ${horariosAgendados}</p>
-    `;
-}
-
-// Atualiza resumo ao iniciar
-atualizarResumo();
+    // Vai para página de resumo
+    window.location.href = 'resumo.html';
+});

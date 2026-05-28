@@ -1,33 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Next-Agendemy</title>
+
+    <!-- Ícone da Página -->
+    <link rel="icon" href="/logo-next-academy.png" type="image/png">
+
     <!-- Link para o Arquivo CSS do Next-Agendemy -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <!-- Página Inicial do Next-Agendemy -->
     <div class="container">
 
         <!-- Título da Página-->
-        <h1>Next-Agendemy</h1>
+        <h1> Next-Agendemy </h1>
 
         <!-- Parágrafo de Boas-Vindas -->
-        <p>
-            Bem-vindo ao Next-Agendemy, sua plataforma de agendamento inteligente!
-            <br>
-            Digite seu nome para realizar o agendamento de sua reunião:
-        </p>
+        <p> Bem-vindo ao Next-Agendemy, sua plataforma de agendamento inteligente! <br> Digite seu nome para realizar o agendamento de sua reunião: </p>
 
         <!-- Input para o Nome e Botão de Confirmação e Cancelamento -->
-        <input
-            type="text" id="nome" placeholder="DIGITE SEU NOME:" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
-
-            <button id="btn-prosseguir"> CONFIRMAR </button>
-            <button id="btn-cancelar"> CANCELAR </button>
+        <input type="text" id="nome" placeholder="DIGITE SEU NOME:" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+        <button id="btn-prosseguir"> CONFIRMAR </button>
+        <button id="btn-cancelar"> CANCELAR </button>
 
         <!-- Parágrafo de Observação -->
         <p class="observacao"> Obs: Você só poderá agendar um horário caso digite seu nome acima. </p>
@@ -42,7 +39,12 @@
                 <th>AGENDAMENTO</th>
             </tr>
         </table>
+
+        <!-- Botão para Exibir o Resumo do Agendamento -->
+        <button id="btn-resumo">RESUMO DO AGENDAMENTO</button>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Link para o Arquivo JavaScript -->
+    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -25,7 +25,7 @@ body {
     margin: 50px auto;
     padding: 20px;
     background-color: #acacac6f;
-    border-radius: 8px;
+    border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -45,7 +45,6 @@ body {
     margin-bottom: 2%;
     margin: 0 22px 20px 22px;
 }
-
 
 .container .observacao {
     text-align: center;
@@ -72,7 +71,7 @@ input {
     box-shadow: 0 0 10px rgba(37,99,235,0.3);
 }
 
-/* Estilos para o Botão */
+/* Estilos para os Botões */
 #btn-prosseguir {
     padding: 12px 20px;
     margin-left: 2%;
@@ -147,6 +146,7 @@ td {
     
 }
 
+/* Destaque da Linha */
 .select-horario option {
     background-color: #0800ff; 
     padding: 10px; 
@@ -158,20 +158,35 @@ td {
     padding-inline-end: -4px !important;
 }
 
-/* Destaque da Linha */
 .linha-destaque td {
     transition: background-color 0.8s ease;
     background-color: #0800ff !important;
     color: white !important;
 }
 
+/* Botão Resumo */
+#btn-resumo {
+    margin-top: 10px;
+    width: 100%;
+    max-width: 150px;
+    margin-left: 41%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #ffffff;
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 /* Responsividade */
 @media(max-width: 900px) {
-    .container{
+    .container {
         overflow-x: auto;
     }
 
-    table{
+    table {
         min-width: 800px;
     }
 }

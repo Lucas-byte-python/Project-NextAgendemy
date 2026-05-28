@@ -1,0 +1,87 @@
+/* Mesmo do Style Principal */
+body {
+    background: linear-gradient(135deg, #FFFFFF 0%, #909090 50%, #afafaf 100%);
+    color: #333;
+    font-family: Arial, sans-serif;
+    padding: 30px;
+}
+
+/* Mesmo da Página Principal */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+table {
+    width: 100%;
+    max-width: 760px;
+    margin-left: 21%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+th {
+    background-color: rgb(23, 26, 26);
+    border: 1px solid #ffffff;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    font-size: 15px;
+}
+
+td {
+    background-color: rgb(43, 52, 52);
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding: 18px;
+    text-align: center;
+}
+
+.agendado {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.disponivel {
+    color: #00ffc8;
+    font-weight: bold;
+}
+
+/* Estilos para o resumo */
+#resumo {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin-left: 34%;
+    margin-top: 20px;
+    background-color: rgb(23, 26, 26);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 35px;
+}
+
+/* Estilos para o botão de voltar */
+#btn-voltar {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 200px;
+    margin-left: 42.5%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #ffffff;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#btn-voltar:hover {
+    opacity: 0.8;
+}
